@@ -1,0 +1,121 @@
+{
+  "project_info": {
+    "project_number": "239191380948",
+    "project_id": "booking-yacht-dev-94139",
+    "storage_bucket": "booking-yacht-dev-94139.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239191380948:android:53740a2f99d85f7c46fc41",
+        "android_client_info": {
+          "package_name": "com.example.booking_yacht"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "239191380948-uv59lap58eu6j0tq5gigt1tc2t0trllq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.booking_yacht",
+            "certificate_hash": "554b922956b87ab99d7f2fe0ba39d221d3b21a93"
+          }
+        },
+        {
+          "client_id": "239191380948-bmso0380t72cresrhu12uva1nqag804k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR_54CnthpVzrJUMIlK6QeCa6QoXXjK5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "239191380948-bmso0380t72cresrhu12uva1nqag804k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239191380948:android:c68b45778512fc9e46fc41",
+        "android_client_info": {
+          "package_name": "com.example.booking_yatch_agency"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "239191380948-99j3dmnltb888pp6brd5nt4m5uv4q0hu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.booking_yatch_agency",
+            "certificate_hash": "539b6a0c28105e013cd291202324f514de1e3f92"
+          }
+        },
+        {
+          "client_id": "239191380948-bmso0380t72cresrhu12uva1nqag804k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR_54CnthpVzrJUMIlK6QeCa6QoXXjK5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "239191380948-bmso0380t72cresrhu12uva1nqag804k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:239191380948:android:0a57b024908ba12f46fc41",
+        "android_client_info": {
+          "package_name": "com.example.owners_yacht"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "239191380948-fhbf7mm40s2u2qk8f2300thpmn5nrj99.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.owners_yacht",
+            "certificate_hash": "bb2bbbe157c20358f23451d5fed13c75842e6f7e"
+          }
+        },
+        {
+          "client_id": "239191380948-bmso0380t72cresrhu12uva1nqag804k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR_54CnthpVzrJUMIlK6QeCa6QoXXjK5w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "239191380948-bmso0380t72cresrhu12uva1nqag804k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
