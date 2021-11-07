@@ -1,9 +1,10 @@
+import 'package:booking_yatch_agency/controller/gobal_controller.dart';
 import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
 import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/constants/app_constants.dart';
 import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
 import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
-import 'package:booking_yatch_agency/utils/format_number.dart';
+import 'package:booking_yatch_agency/utils/format.dart';
 import 'package:booking_yatch_agency/widgets/secondary_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -14,13 +15,16 @@ import 'package:shimmer/shimmer.dart';
 
 class TourCard extends StatelessWidget {
   final BusinessTour item;
-  const TourCard(this.item, {Key? key}) : super(key: key);
+  TourCard(this.item, {Key? key}) : super(key: key);
+
+  final globalController = Get.find<GlobalController>();
 
   @override
   Widget build(BuildContext context) {
     final IdTourNavigation tour = item.idTourNavigation ?? IdTourNavigation();
-
     final List<TicketType> ticketTypes = item.ticketTypes;
+    final IdBusinessNavigation business =
+        item.idBusinessNavigation ?? IdBusinessNavigation();
 
     String getMinPrice() {
       double min = ticketTypes[0].price;
@@ -51,6 +55,16 @@ class TourCard extends StatelessWidget {
                       tour.title,
                       style: AppFonts.h3b,
                     ),
+                  ),
+                  Row(
+                    children: [
+                      Text(
+                        'Chủ tàu: ',
+                        style:
+                            AppFonts.h4.copyWith(fontWeight: FontWeight.w600),
+                      ),
+                      Text(business.name, style: AppFonts.h4),
+                    ],
                   ),
                   const Divider(),
                   Row(
@@ -86,7 +100,8 @@ class TourCard extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SecondaryButton('Xem thêm', () {
-                            Get.toNamed('/detail/', arguments: [item]);
+                            globalController.setBusinessTour(item);
+                            Get.toNamed('/detail');
                           }),
                         ],
                       ),

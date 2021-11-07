@@ -1,7 +1,6 @@
-import 'package:booking_yatch_agency/core/constants/app_constants.dart';
 import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
 import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
-import 'package:booking_yatch_agency/utils/format_number.dart';
+import 'package:booking_yatch_agency/utils/format.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

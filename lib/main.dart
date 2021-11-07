@@ -7,6 +7,8 @@ import 'package:booking_yatch_agency/features/detail/binding/detail_binding.dart
 import 'package:booking_yatch_agency/features/detail/view/detail_view.dart';
 import 'package:booking_yatch_agency/features/home/binding/home_binding.dart';
 import 'package:booking_yatch_agency/features/home/view/home_view.dart';
+import 'package:booking_yatch_agency/features/select_time/binding/select_time_binding.dart';
+import 'package:booking_yatch_agency/features/select_time/view/select_time_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -45,6 +47,18 @@ class MyApp extends StatelessWidget {
           ),
           getPages: [
             GetPage(
+              name: '/login',
+              page: () => SignIn(),
+              binding: AuthenBinding(),
+              transition: Transition.noTransition,
+            ),
+            GetPage(
+              name: '/register',
+              page: () => SignUp(),
+              binding: AuthenBinding(),
+              transition: Transition.noTransition,
+            ),
+            GetPage(
               name: '/home',
               page: () => Home(),
               binding: HomeBinding(),
@@ -57,15 +71,9 @@ class MyApp extends StatelessWidget {
               transition: Transition.noTransition,
             ),
             GetPage(
-              name: '/login',
-              page: () => SignIn(),
-              binding: AuthenBinding(),
-              transition: Transition.noTransition,
-            ),
-            GetPage(
-              name: '/register',
-              page: () => SignUp(),
-              binding: AuthenBinding(),
+              name: '/select-time',
+              page: () => SelectTime(),
+              binding: SelectTimeBinding(),
               transition: Transition.noTransition,
             ),
           ],

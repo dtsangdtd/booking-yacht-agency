@@ -1,3 +1,4 @@
+import 'package:booking_yatch_agency/controller/gobal_controller.dart';
 import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
 import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/constants/app_constants.dart';
@@ -7,6 +8,7 @@ import 'package:booking_yatch_agency/features/detail/controller/detail_controlle
 import 'package:booking_yatch_agency/features/detail/view/widgets/schedule.dart';
 import 'package:booking_yatch_agency/features/detail/view/widgets/schedule_loading.dart';
 import 'package:booking_yatch_agency/features/detail/view/widgets/ticket_types.dart';
+import 'package:booking_yatch_agency/widgets/primary_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -17,14 +19,17 @@ import 'package:shimmer/shimmer.dart';
 class Detail extends StatelessWidget {
   Detail({Key? key}) : super(key: key);
 
+  final globalController = Get.find<GlobalController>();
   final controller = Get.find<DetailController>();
 
   @override
   Widget build(BuildContext context) {
-    BusinessTour item = Get.arguments[0];
+    final BusinessTour item = globalController.selectedBusinessTour.value;
     final IdTourNavigation tour = item.idTourNavigation ?? IdTourNavigation();
     controller.loadDestinationTours(tour.id);
     final List<TicketType> ticketTypes = item.ticketTypes;
+    final IdBusinessNavigation business =
+        item.idBusinessNavigation ?? IdBusinessNavigation();
 
     return Scaffold(
       body: SafeArea(
@@ -41,13 +46,37 @@ class Detail extends StatelessWidget {
               ),
             ];
           },
-          body: buildBody(tour, ticketTypes),
+          body: buildBody(tour, ticketTypes, business),
         ),
+      ),
+      bottomNavigationBar: buildBottomNavigationBar(),
+    );
+  }
+
+  Container buildBottomNavigationBar() {
+    return Container(
+      height: 50.h,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        boxShadow: [AppBoxShadows.image],
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          SizedBox(
+            height: 40.h,
+            width: 120.h,
+            child: PrimaryButton('Đặt ngay', () {
+              Get.toNamed('/select-time');
+            }),
+          ),
+        ],
       ),
     );
   }
 
-  Widget buildBody(IdTourNavigation tour, List<TicketType> ticketTypes) {
+  Widget buildBody(IdTourNavigation tour, List<TicketType> ticketTypes,
+      IdBusinessNavigation business) {
     return RefreshIndicator(
       onRefresh: () async {
         controller.loadDestinationTours(tour.id);
@@ -66,7 +95,7 @@ class Detail extends StatelessWidget {
           ),
           Container(
             margin: EdgeInsets.fromLTRB(30.w, 10.h, 30.w, 30.h),
-            padding: EdgeInsets.symmetric(vertical: 20.h, horizontal: 20.w),
+            padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 20.w),
             decoration: BoxDecoration(
               color: Colors.white,
               boxShadow: [AppBoxShadows.card],
@@ -77,6 +106,15 @@ class Detail extends StatelessWidget {
                 Text(
                   tour.title,
                   style: AppFonts.h2b,
+                ),
+                Row(
+                  children: [
+                    Text(
+                      'Chủ tàu: ',
+                      style: AppFonts.h4.copyWith(fontWeight: FontWeight.w600),
+                    ),
+                    Text(business.name, style: AppFonts.h4),
+                  ],
                 ),
                 const Divider(),
                 Row(
