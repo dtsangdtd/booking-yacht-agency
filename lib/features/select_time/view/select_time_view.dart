@@ -9,8 +9,6 @@ import 'package:booking_yatch_agency/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class SelectTime extends StatelessWidget {
   SelectTime({Key? key}) : super(key: key);
@@ -48,9 +46,6 @@ class SelectTime extends StatelessWidget {
   Widget buildBody(List<Trip> trips) {
     List<Widget> tripItems = [];
 
-    initializeDateFormatting();
-    Intl.defaultLocale = 'vi';
-
     for (int i = 0; i < trips.length; i++) {
       Widget tripItem = Obx(
         () => ToggleButton(
@@ -87,8 +82,9 @@ class SelectTime extends StatelessWidget {
           SizedBox(
             height: 40.h,
             width: 120.h,
-            child: PrimaryButton('Tiếp tục', () {},
-                suffix: const Icon(Icons.navigate_next)),
+            child: PrimaryButton('Tiếp tục', () {
+              Get.toNamed('/select-ticket');
+            }, suffix: const Icon(Icons.navigate_next)),
           ),
         ],
       ),

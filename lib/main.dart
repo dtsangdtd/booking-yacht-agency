@@ -7,12 +7,16 @@ import 'package:booking_yatch_agency/features/detail/binding/detail_binding.dart
 import 'package:booking_yatch_agency/features/detail/view/detail_view.dart';
 import 'package:booking_yatch_agency/features/home/binding/home_binding.dart';
 import 'package:booking_yatch_agency/features/home/view/home_view.dart';
+import 'package:booking_yatch_agency/features/select_ticket/binding/select_ticket_binding.dart';
+import 'package:booking_yatch_agency/features/select_ticket/view/select_ticket_view.dart';
 import 'package:booking_yatch_agency/features/select_time/binding/select_time_binding.dart';
 import 'package:booking_yatch_agency/features/select_time/view/select_time_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +29,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white));
+
+    initializeDateFormatting();
+    Intl.defaultLocale = 'vi';
+
     return ScreenUtilInit(
       designSize: const Size(630, 720),
       builder: () => GestureDetector(
@@ -74,6 +82,12 @@ class MyApp extends StatelessWidget {
               name: '/select-time',
               page: () => SelectTime(),
               binding: SelectTimeBinding(),
+              transition: Transition.noTransition,
+            ),
+            GetPage(
+              name: '/select-ticket',
+              page: () => SelectTicket(),
+              binding: SelectTicketBinding(),
               transition: Transition.noTransition,
             ),
           ],

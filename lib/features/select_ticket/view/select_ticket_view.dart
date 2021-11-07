@@ -32,7 +32,7 @@ class SelectTicket extends StatelessWidget {
               const SliverAppBar(
                 floating: true,
                 snap: true,
-                title: Text('Chọn thời gian khởi hành'),
+                title: Text('Chọn số vé'),
                 backgroundColor: Colors.white,
                 foregroundColor: AppColors.black,
               ),
