@@ -1,8 +1,6 @@
 import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
-import 'package:booking_yatch_agency/core/repositories/authen/authen_repo_impl.dart';
 import 'package:booking_yatch_agency/features/authen/binding/authen_binding.dart';
-import 'package:booking_yatch_agency/features/authen/controller/authen_controller.dart';
 import 'package:booking_yatch_agency/features/authen/view/signin_view.dart';
 import 'package:booking_yatch_agency/features/authen/view/signup_view.dart';
 import 'package:booking_yatch_agency/features/detail/binding/detail_binding.dart';

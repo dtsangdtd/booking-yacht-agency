@@ -14,7 +14,6 @@ class ScheduleLoading extends StatelessWidget {
       baseColor: AppConstants.shimmerBaseColor,
       highlightColor: AppConstants.shimmerHighlightColor,
       child: Column(children: [
-        const Divider(),
         Container(
           color: Colors.white,
           height: 20.h,

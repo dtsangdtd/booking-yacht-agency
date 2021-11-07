@@ -1,7 +1,9 @@
 import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
+import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/constants/app_constants.dart';
 import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
-import 'package:booking_yatch_agency/core/models/tours_response_model.dart';
+import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
+import 'package:booking_yatch_agency/utils/format_number.dart';
 import 'package:booking_yatch_agency/widgets/secondary_button.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +13,25 @@ import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TourCard extends StatelessWidget {
-  final Tour item;
+  final BusinessTour item;
   const TourCard(this.item, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final IdTourNavigation tour = item.idTourNavigation ?? IdTourNavigation();
+
+    final List<TicketType> ticketTypes = item.ticketTypes;
+
+    String getMinPrice() {
+      double min = ticketTypes[0].price;
+      for (var item in ticketTypes) {
+        if (item.price < min) {
+          min = item.price;
+        }
+      }
+      return AppFormats.vnd.format(min);
+    }
+
     return Column(
       children: [
         Stack(
@@ -32,7 +48,7 @@ class TourCard extends StatelessWidget {
                   Container(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      item.tittle,
+                      tour.title,
                       style: AppFonts.h3b,
                     ),
                   ),
@@ -40,20 +56,40 @@ class TourCard extends StatelessWidget {
                   Row(
                     children: [
                       Expanded(
-                        child: HtmlWidget(item.descriptions,
+                        child: HtmlWidget(tour.descriptions,
                             textStyle: AppFonts.h4),
                       ),
                     ],
                   ),
-                  SizedBox(
-                    height: 10.h,
-                  ),
+                  const Divider(),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SecondaryButton('Xem thêm', () {
-                        Get.toNamed('/detail/', arguments: [item]);
-                      }),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Giá chỉ từ', style: AppFonts.h4b),
+                          Row(
+                            children: [
+                              Text(getMinPrice(),
+                                  style: AppFonts.h3b
+                                      .copyWith(color: AppColors.primaryColor)),
+                              Text('/người',
+                                  style: AppFonts.h4
+                                      .copyWith(color: AppColors.gray))
+                            ],
+                          ),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SecondaryButton('Xem thêm', () {
+                            Get.toNamed('/detail/', arguments: [item]);
+                          }),
+                        ],
+                      ),
                     ],
                   ),
                 ],
@@ -62,7 +98,7 @@ class TourCard extends StatelessWidget {
             Stack(
               children: [
                 CachedNetworkImage(
-                  imageUrl: item.imageLink,
+                  imageUrl: tour.imageLink,
                   imageBuilder: (context, imageProvider) => Container(
                     margin: EdgeInsets.fromLTRB(30.w, 0, 30.w, 0.h),
                     height: 0.3.sh,

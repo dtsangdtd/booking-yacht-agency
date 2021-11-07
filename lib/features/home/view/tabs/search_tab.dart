@@ -16,24 +16,29 @@ class Search extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(
-      () {
-        return controller.isLoading.isTrue
-            ? buildTourCardsLoading()
-            : buildTourCards();
+    return RefreshIndicator(
+      onRefresh: () async {
+        controller.loadBusinessTours();
       },
+      child: Obx(
+        () {
+          return controller.isLoading.isTrue
+              ? buildTourCardsLoading()
+              : buildTourCards();
+        },
+      ),
     );
   }
 
   Container buildTourCards() {
     return Container(
-      child: controller.tours.isEmpty
+      child: controller.businessTours.isEmpty
           ? const Center(child: Text('Không tìm thấy tour'))
           : ListView.separated(
-              padding: EdgeInsets.only(top: 20.h),
-              itemCount: controller.tours.length,
+              padding: EdgeInsets.only(top: 20.h, bottom: 20.h),
+              itemCount: controller.businessTours.length,
               itemBuilder: (BuildContext context, int index) {
-                return TourCard(controller.tours[index]);
+                return TourCard(controller.businessTours[index]);
               },
               separatorBuilder: (BuildContext context, int index) => SizedBox(
                 height: 20.h,

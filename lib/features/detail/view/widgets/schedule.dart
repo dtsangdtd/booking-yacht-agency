@@ -28,14 +28,15 @@ class Schedule extends StatelessWidget {
       for (int i = 0; i < destinationTours.length - 1; i++) {
         String name = destinationTours[i].destination?.name ?? '';
         String address = destinationTours[i].destination?.address ?? '';
-        Widget item = buildLocationItem(name, address);
+        Widget item = buildLocationItem(i + 1, name, address);
         locationItems.add(item);
         locationItems.add(divider);
       }
 
       String name = destinationTours.last.destination?.name ?? '';
       String address = destinationTours.last.destination?.address ?? '';
-      locationItems.add(buildLocationItem(name, address));
+      locationItems
+          .add(buildLocationItem(destinationTours.length, name, address));
     }
 
     return locationItems;
@@ -46,8 +47,16 @@ class Schedule extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Divider(),
-        Text('Lịch trình', style: AppFonts.h3b),
+        Row(
+          children: [
+            const Icon(
+              Icons.today,
+              size: 20,
+            ),
+            SizedBox(width: 10.w),
+            Text('Lịch trình', style: AppFonts.h3b),
+          ],
+        ),
         SizedBox(
           height: 10.h,
         ),
@@ -61,7 +70,7 @@ class Schedule extends StatelessWidget {
     );
   }
 
-  Row buildLocationItem(String text, String description) {
+  Row buildLocationItem(int index, String text, String description) {
     return Row(
       children: [
         const Icon(Icons.location_on_outlined),
@@ -72,7 +81,7 @@ class Schedule extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(text, style: AppFonts.h4),
+              Text("Chặng $index: " + text, style: AppFonts.h4),
               Text(
                 description,
                 style: AppFonts.h5.copyWith(

@@ -26,7 +26,7 @@ class ToursResponse {
 class Tour {
   Tour({
     this.id = AppConstants.defaultGuid,
-    this.tittle = AppConstants.defaultString,
+    this.title = AppConstants.defaultString,
     this.descriptions = AppConstants.defaultString,
     this.status = 0,
     this.imageLink = AppConstants.defaultNetworkImageUrl,
@@ -34,7 +34,7 @@ class Tour {
   });
 
   String id;
-  String tittle;
+  String title;
   String descriptions;
   int status;
   String imageLink;
@@ -42,7 +42,7 @@ class Tour {
 
   factory Tour.fromJson(Map<String, dynamic> json) => Tour(
         id: json["id"],
-        tittle: json["tittle"] ?? AppConstants.defaultString,
+        title: json["title"] ?? AppConstants.defaultString,
         descriptions: json["descriptions"] ?? AppConstants.defaultString,
         status: json["status"] ?? 0,
         imageLink: json["imageLink"] ?? AppConstants.defaultNetworkImageUrl,
@@ -51,7 +51,7 @@ class Tour {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "tittle": tittle,
+        "title": title,
         "descriptions": descriptions,
         "status": status,
         "imageLink": imageLink,
