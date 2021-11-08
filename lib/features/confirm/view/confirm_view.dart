@@ -134,18 +134,19 @@ class Confirm extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          SizedBox(
-            height: 40.h,
-            width: 120.h,
-            child: PrimaryButton(
-              'Đặt ngay',
-              () {
-                globalController.createOrder();
-                Get.toNamed('/success');
-              },
-              suffix: const Icon(Icons.navigate_next),
-            ),
-          ),
+          Obx(() => SizedBox(
+                height: 40.h,
+                width: 140.h,
+                child: PrimaryButton(
+                  'Đặt ngay',
+                  () async {
+                    await globalController.createOrder();
+                    Get.offAllNamed('/success');
+                  },
+                  suffix: const Icon(Icons.navigate_next),
+                  isLoading: globalController.createOrderLoading.value,
+                ),
+              )),
         ],
       ),
     );

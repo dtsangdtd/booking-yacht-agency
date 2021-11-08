@@ -46,10 +46,9 @@ class Success extends StatelessWidget {
   Widget buildBody() {
     return Container(
       margin: EdgeInsets.fromLTRB(30.w, 15.h, 30.w, 0.h),
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('Thanh toán thànhhhhhhhhhhhhhhhh Cônggggggggggggggggg',
-            style: AppFonts.h3b),
-      ]),
+      child: Center(
+        child: Text('Thanh toán thành công!', style: AppFonts.h3b),
+      ),
     );
   }
 

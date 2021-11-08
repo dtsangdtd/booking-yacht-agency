@@ -109,6 +109,7 @@ class GlobalController extends GetxController {
   final orderRepo = Get.find<OrderRepoImpl>();
   RxString orderId = ''.obs;
   RxInt paymentMethod = 0.obs;
+  RxBool createOrderLoading = false.obs;
 
   setPaymentMethod(value) {
     paymentMethod = value;
@@ -117,6 +118,8 @@ class GlobalController extends GetxController {
   createOrder() async {
     // Push order
     // ignore: invalid_use_of_protected_member
+    createOrderLoading.value = true;
+
     var user = authenController.user.value;
     OrderRequest model = OrderRequest(
       idAgency: user['Id'] ?? '',
@@ -154,6 +157,8 @@ class GlobalController extends GetxController {
       idTicketTypes: idTicketTypes,
     );
     await orderRepo.createTicket(ticketRequest);
+
+    createOrderLoading.value = false;
   }
 
 // #endregion
