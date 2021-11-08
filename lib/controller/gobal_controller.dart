@@ -153,7 +153,7 @@ class GlobalController extends GetxController {
       phones: phones,
       idTicketTypes: idTicketTypes,
     );
-    orderRepo.createTicket(ticketRequest);
+    await orderRepo.createTicket(ticketRequest);
   }
 
 // #endregion
