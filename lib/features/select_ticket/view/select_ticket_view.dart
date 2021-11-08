@@ -3,14 +3,11 @@ import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
 import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
 import 'package:booking_yatch_agency/features/select_ticket/controller/select_ticket_controller.dart';
-import 'package:booking_yatch_agency/utils/format.dart';
+import 'package:booking_yatch_agency/features/select_ticket/view/widgets/ticket_type_item.dart';
 import 'package:booking_yatch_agency/widgets/primary_button.dart';
-import 'package:booking_yatch_agency/widgets/toggle_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
-import 'package:intl/intl.dart';
-import 'package:intl/date_symbol_data_local.dart';
 
 class SelectTicket extends StatelessWidget {
   SelectTicket({Key? key}) : super(key: key);
@@ -21,7 +18,7 @@ class SelectTicket extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final businessTour = globalController.selectedBusinessTour.value;
-    final trips = businessTour.trips;
+    final List<TicketType> ticketTypes = businessTour.ticketTypes;
 
     return Scaffold(
       body: SafeArea(
@@ -38,38 +35,32 @@ class SelectTicket extends StatelessWidget {
               ),
             ];
           },
-          body: buildBody(trips),
+          body: buildBody(ticketTypes),
         ),
       ),
       bottomNavigationBar: buildBottomNavigationBar(),
     );
   }
 
-  Widget buildBody(List<Trip> trips) {
-    List<Widget> tripItems = [];
+  Widget buildBody(List<TicketType> ticketTypes) {
+    List<Widget> ticketTypeList = [];
 
-    initializeDateFormatting();
-    Intl.defaultLocale = 'vi';
-
-    for (int i = 0; i < trips.length; i++) {
-      Widget tripItem = Obx(
-        () => ToggleButton(
-          AppFormats.datetime.format(trips[i].time ?? DateTime.now()),
-          () {
-            controller.setSelectedIndex(i);
-            globalController.setTrip(trips[i]);
-          },
-          isSelected: i == controller.selectedIndex.value,
-        ),
-      );
-
-      tripItems.add(tripItem);
+    if (ticketTypes.isNotEmpty) {
+      for (int i = 0; i < ticketTypes.length - 1; i++) {
+        var ticketTypeItem = TicketTypeItem(ticketTypes[i]);
+        ticketTypeList.add(ticketTypeItem);
+        ticketTypeList.add(const Divider());
+      }
+      var ticketTypeItem = TicketTypeItem(ticketTypes.last);
+      ticketTypeList.add(ticketTypeItem);
     }
 
-    return Container(
-      margin: EdgeInsets.fromLTRB(30.w, 15.h, 30.w, 0.h),
-      child: Column(
-        children: tripItems,
+    return SingleChildScrollView(
+      child: Container(
+        margin: EdgeInsets.fromLTRB(30.w, 20.h, 30.w, 20.h),
+        child: Column(
+          children: ticketTypeList,
+        ),
       ),
     );
   }

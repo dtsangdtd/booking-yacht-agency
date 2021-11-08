@@ -83,6 +83,7 @@ class SelectTime extends StatelessWidget {
             height: 40.h,
             width: 120.h,
             child: PrimaryButton('Tiếp tục', () {
+              globalController.initTicketTypesMap();
               Get.toNamed('/select-ticket');
             }, suffix: const Icon(Icons.navigate_next)),
           ),
