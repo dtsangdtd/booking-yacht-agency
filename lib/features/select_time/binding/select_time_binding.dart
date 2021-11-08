@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 class SelectTimeBinding extends Bindings {
   @override
   void dependencies() {
-    Get.put(GlobalController());
     Get.put(SelectTimeController());
   }
 }

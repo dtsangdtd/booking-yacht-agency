@@ -67,6 +67,7 @@ class Detail extends StatelessWidget {
             height: 40.h,
             width: 120.h,
             child: PrimaryButton('Đặt ngay', () {
+              globalController.initTrip();
               Get.toNamed('/select-time');
             }),
           ),

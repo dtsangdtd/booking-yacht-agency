@@ -14,7 +14,7 @@ class Account extends StatelessWidget {
       child: PrimaryButton(
         'Đăng xuất',
         () {
-          controller.signOut(context);
+          controller.signOut();
         },
       ),
     );

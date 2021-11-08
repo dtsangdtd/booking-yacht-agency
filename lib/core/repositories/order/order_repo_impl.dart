@@ -17,7 +17,13 @@ class OrderRepoImpl implements OrderRepo {
   @override
   Future<DataResponse> createOrder(OrderRequest model) async {
     try {
-      final response = await _httpService.post('orders', model);
+      final response = await _httpService.post('orders', {
+        "idAgency": model.idAgency,
+        "idTrip": model.idTrip,
+        "orderDate": model.orderDate.toString(),
+        "totalPrice": model.totalPrice,
+        "quantityOfPerson": model.quantityOfPerson,
+      });
       final parsedResponse = dataResponseFromJson(response.toString());
       return parsedResponse;
     } on Exception catch (e) {
@@ -29,7 +35,13 @@ class OrderRepoImpl implements OrderRepo {
   @override
   Future<DataResponse> createTicket(TicketRequest model) async {
     try {
-      final response = await _httpService.post('ticket', model);
+      final response = await _httpService.post('ticket', {
+        "idOrder": model.idOrder,
+        "idTrip": model.idTrip,
+        "customerNames": model.customerNames,
+        "phones": model.phones,
+        "idTicketTypes": model.idTicketTypes,
+      });
       final parsedResponse = dataResponseFromJson(response.toString());
       return parsedResponse;
     } on Exception catch (e) {

@@ -13,6 +13,7 @@ class InputForm extends StatelessWidget {
     this.validator,
     this.obscureText = false,
     this.onChanged,
+    this.keyboardType,
   }) : super(key: key);
 
   final String text;
@@ -22,6 +23,7 @@ class InputForm extends StatelessWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final Function(String)? onChanged;
+  final TextInputType? keyboardType;
 
   @override
   Widget build(BuildContext context) {
@@ -58,6 +60,7 @@ class InputForm extends StatelessWidget {
       validator: validator,
       obscureText: obscureText,
       onChanged: onChanged,
+      keyboardType: keyboardType,
     );
   }
 }

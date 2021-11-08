@@ -13,8 +13,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 
-class TicketTypeItem extends StatelessWidget {
-  TicketTypeItem(
+class CustomerItem extends StatelessWidget {
+  CustomerItem(
     this.item, {
     Key? key,
   }) : super(key: key);
@@ -45,7 +45,7 @@ class TicketTypeItem extends StatelessWidget {
       for (int i = 0; i < customers.length - 1; i++) {
         Widget customerItem = buildCustomerItem(i);
         customerItemList.add(customerItem);
-        customerItemList.add(SizedBox(height: 10.h));
+        customerItemList.add(SizedBox(height: 2.h));
       }
 
       Widget customerItem = buildCustomerItem(customers.length - 1);
@@ -54,7 +54,7 @@ class TicketTypeItem extends StatelessWidget {
 
     return Container(
       margin: customers.isNotEmpty
-          ? EdgeInsets.fromLTRB(5.w, 10.h, 5.w, 10.h)
+          ? EdgeInsets.fromLTRB(20.w, 5.h, 10.w, 5.h)
           : const EdgeInsets.all(0),
       child: Column(
         children: customerItemList,
@@ -62,46 +62,18 @@ class TicketTypeItem extends StatelessWidget {
     );
   }
 
-  Container buildCustomerItem(int i) {
+  Widget buildCustomerItem(int i) {
+    List<Customer> customers = globalController.getCustomers(item.id);
     return Container(
-      padding: EdgeInsets.fromLTRB(25.w, 15.h, 25.w, 15.h),
       width: 1.sw,
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [AppBoxShadows.card],
-        borderRadius: BorderRadius.circular(20.r),
-      ),
       child: Column(
         children: [
-          InputForm(
-            'Tên khách hàng',
-            onChanged: (value) {
-              globalController.updateCustomer(item.id, i, name: value);
-            },
-            validator: (value) {
-              if (value == null || value.isEmpty) {
-                return AppConstants.space +
-                    'Tên khách hàng không được để trống';
-              }
-              return null;
-            },
-          ),
-          SizedBox(height: 10.h),
-          InputForm(
-            'Số điện thoại',
-            onChanged: (value) {
-              globalController.updateCustomer(item.id, i, phone: value);
-            },
-            keyboardType: TextInputType.number,
-            validator: (value) {
-              if (value != null &&
-                  value.isNotEmpty &&
-                  !GetUtils.isPhoneNumber(value)) {
-                return AppConstants.space +
-                    'Vui lòng nhập số điện thoại hợp lệ';
-              }
-              return null;
-            },
+          Row(
+            children: [
+              const Icon(Icons.circle, size: 5),
+              SizedBox(width: 20.w),
+              Text(customers[i].name, style: AppFonts.h4),
+            ],
           ),
         ],
       ),
@@ -109,6 +81,7 @@ class TicketTypeItem extends StatelessWidget {
   }
 
   Row buildTicketTitle() {
+    var countCustomer = globalController.countCustomer(item.id);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -117,24 +90,22 @@ class TicketTypeItem extends StatelessWidget {
           children: [
             Text(item.name,
                 style: AppFonts.h3.copyWith(fontWeight: FontWeight.w500)),
-            Text(
-              AppFormats.vnd.format(item.price),
-              style: AppFonts.h4.copyWith(color: AppColors.gray),
-            ),
           ],
         ),
         Row(
           children: [
-            CircleButton(Icons.remove, () {
-              globalController.removeLastCustomer(item.id);
-            }),
-            Obx(
-              () => Text(globalController.countCustomer(item.id).toString(),
-                  style: AppFonts.h4b),
+            Text(
+              countCustomer.toString(),
+              style: AppFonts.h4b,
             ),
-            CircleButton(Icons.add, () {
-              globalController.addCustomer(item.id, Customer());
-            }),
+            Text(
+              ' x ',
+              style: AppFonts.h4b,
+            ),
+            Text(
+              AppFormats.vnd.format(item.price),
+              style: AppFonts.h4b,
+            ),
           ],
         ),
       ],

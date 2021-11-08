@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:booking_yatch_agency/core/models/authen_response_model.dart';
 import 'package:booking_yatch_agency/core/repositories/authen/authen_repo.dart';
 import 'package:booking_yatch_agency/core/repositories/authen/authen_repo_impl.dart';
@@ -7,6 +5,7 @@ import 'package:booking_yatch_agency/utils/authentication.dart';
 import 'package:booking_yatch_agency/utils/delay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:jwt_decoder/jwt_decoder.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthenController extends GetxController {
@@ -16,6 +15,7 @@ class AuthenController extends GetxController {
     _authenRepo = Get.find<AuthenRepoImpl>();
   }
 
+  RxMap<String, dynamic> user = RxMap<String, dynamic>();
   RxBool isLoading = false.obs;
   RxBool isSignInLoading = false.obs;
   RxBool isOpenSignInLoading = false.obs;
@@ -27,13 +27,16 @@ class AuthenController extends GetxController {
 
   @override
   onInit() async {
-    ever(isLogged, fireRoute);
     checkLogin();
+    ever(isLogged, fireRoute);
     super.onInit();
   }
 
-  fireRoute(logged) {
+  fireRoute(logged) async {
     if (logged) {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      String? token = prefs.getString('jwtToken') ?? '';
+      user.value = JwtDecoder.decode(token);
       Get.offNamed('/home');
     } else {
       Get.offNamed('/login');
@@ -124,10 +127,10 @@ class AuthenController extends GetxController {
     });
   }
 
-  signOut(context) async {
+  signOut() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.remove('jwtToken');
     isLogged.value = false;
-    await Authentication.signOut(context: context);
+    await Authentication.signOutNoContext();
   }
 }

@@ -18,10 +18,11 @@ class HttpServiceImpl implements HttpService {
 
   @override
   Future<Response> get(String url) async {
+    await loadToken();
     Response response;
     try {
       response = await _dio.get(url);
-    } on Exception catch (error) {
+    } on DioError catch (error) {
       debugPrint(error.toString());
       throw Exception(error.toString());
     }
@@ -30,10 +31,11 @@ class HttpServiceImpl implements HttpService {
 
   @override
   Future<Response> post(String url, dynamic data) async {
+    await loadToken();
     Response response;
     try {
       response = await _dio.post(url, data: data);
-    } on Exception catch (error) {
+    } on DioError catch (error) {
       debugPrint(error.toString());
       throw Exception(error.toString());
     }
@@ -45,22 +47,21 @@ class HttpServiceImpl implements HttpService {
       InterceptorsWrapper(
         onRequest: (options, handler) {
           debugPrint(
-              '${options.method} | ${options.baseUrl}${options.path} \n ${options.data}');
+              '${options.method} | ${options.baseUrl}${options.path} \n ${options.data} \n ${options.headers}');
           return handler.next(options); //continue
         },
-        onResponse: (response, handler) async {
+        onResponse: (response, handler) {
           debugPrint(
               "${response.statusCode} | ${response.statusMessage} | ${response.data}");
 
-          if (response.statusCode == 401) {
-            SharedPreferences prefs = await SharedPreferences.getInstance();
-            await prefs.remove('jwtToken');
-          }
-
           return handler.next(response); // continue
         },
-        onError: (DioError e, handler) {
+        onError: (DioError e, handler) async {
           debugPrint(e.message);
+
+          if (e.response?.statusCode == 401) {
+            // Sign out
+          }
           return handler.next(e); //continue
         },
       ),

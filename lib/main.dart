@@ -1,8 +1,14 @@
+import 'package:booking_yatch_agency/controller/gobal_controller.dart';
 import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
+import 'package:booking_yatch_agency/core/repositories/authen/authen_repo_impl.dart';
+import 'package:booking_yatch_agency/core/repositories/order/order_repo_impl.dart';
 import 'package:booking_yatch_agency/features/authen/binding/authen_binding.dart';
+import 'package:booking_yatch_agency/features/authen/controller/authen_controller.dart';
 import 'package:booking_yatch_agency/features/authen/view/signin_view.dart';
 import 'package:booking_yatch_agency/features/authen/view/signup_view.dart';
+import 'package:booking_yatch_agency/features/confirm/binding/confirm_binding.dart';
+import 'package:booking_yatch_agency/features/confirm/view/confirm_view.dart';
 import 'package:booking_yatch_agency/features/detail/binding/detail_binding.dart';
 import 'package:booking_yatch_agency/features/detail/view/detail_view.dart';
 import 'package:booking_yatch_agency/features/home/binding/home_binding.dart';
@@ -11,6 +17,8 @@ import 'package:booking_yatch_agency/features/select_ticket/binding/select_ticke
 import 'package:booking_yatch_agency/features/select_ticket/view/select_ticket_view.dart';
 import 'package:booking_yatch_agency/features/select_time/binding/select_time_binding.dart';
 import 'package:booking_yatch_agency/features/select_time/view/select_time_view.dart';
+import 'package:booking_yatch_agency/features/sucess/binding/success_binding.dart';
+import 'package:booking_yatch_agency/features/sucess/view/success_view.dart';
 import 'package:booking_yatch_agency/services/http_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -31,8 +39,10 @@ class MyApp extends StatelessWidget {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white));
 
-    final _httpService = Get.put(HttpServiceImpl());
-    _httpService.loadToken();
+    Get.put(AuthenRepoImpl());
+    Get.put(AuthenController());
+    Get.put(OrderRepoImpl());
+    Get.put(GlobalController());
 
     initializeDateFormatting();
     Intl.defaultLocale = 'vi';
@@ -92,6 +102,18 @@ class MyApp extends StatelessWidget {
               name: '/select-ticket',
               page: () => SelectTicket(),
               binding: SelectTicketBinding(),
+              transition: Transition.noTransition,
+            ),
+            GetPage(
+              name: '/confirm',
+              page: () => Confirm(),
+              binding: ConfirmBinding(),
+              transition: Transition.noTransition,
+            ),
+            GetPage(
+              name: '/success',
+              page: () => Success(),
+              binding: SuccessBinding(),
               transition: Transition.noTransition,
             ),
           ],

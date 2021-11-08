@@ -8,6 +8,5 @@ class DetailBinding extends Bindings {
   void dependencies() {
     Get.put(TourDetailRepoImpl());
     Get.put(DetailController());
-    Get.put(GlobalController());
   }
 }

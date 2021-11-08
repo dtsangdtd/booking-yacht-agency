@@ -100,7 +100,14 @@ class SelectTicket extends StatelessWidget {
                     height: 40.h,
                     width: 120.h,
                     child: PrimaryButton('Tiếp tục', () {
-                      if (controller.formKey.currentState!.validate()) {}
+                      if (globalController.getQuantity() == 0) {
+                        Get.snackbar(
+                            'Không thành công', 'Hãy chọn ít nhất 1 vé');
+                      } else {
+                        if (controller.formKey.currentState!.validate()) {
+                          Get.toNamed('/confirm');
+                        }
+                      }
                     }, suffix: const Icon(Icons.navigate_next)),
                   ),
                 ],
