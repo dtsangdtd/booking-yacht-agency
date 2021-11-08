@@ -9,16 +9,16 @@ class HomeController extends GetxController {
 
   HomeController() {
     _businessToursRepo = Get.find<BusinessTourRepoImpl>();
-    loadBusinessTours();
+    loadBusinessTours('');
   }
 
   RxInt index = 0.obs;
   RxBool isLoading = false.obs;
   RxList<BusinessTour> businessTours = RxList<BusinessTour>();
 
-  loadBusinessTours() async {
+  loadBusinessTours(String query) async {
     isLoading.value = true;
-    final result = await _businessToursRepo.getBusinessTours('');
+    final result = await _businessToursRepo.getBusinessTours(query);
     isLoading.value = false;
 
     if (result.isNotEmpty) {
