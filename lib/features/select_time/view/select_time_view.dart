@@ -71,7 +71,7 @@ class SelectTime extends StatelessWidget {
 
   Container buildBottomNavigationBar() {
     return Container(
-      height: 50.h,
+      padding: EdgeInsets.symmetric(vertical: 10.h),
       decoration: BoxDecoration(
         color: Colors.white,
         boxShadow: [AppBoxShadows.image],

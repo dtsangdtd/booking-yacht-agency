@@ -10,12 +10,14 @@ class Input extends StatelessWidget {
     this.prefixIcon,
     this.suffixIcon,
     this.controller,
+    this.onChanged,
   }) : super(key: key);
 
   final String text;
   final Widget? prefixIcon;
   final Widget? suffixIcon;
   final TextEditingController? controller;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -47,6 +49,7 @@ class Input extends StatelessWidget {
 
     return TextField(
       controller: controller,
+      onChanged: onChanged,
       style: AppFonts.h4.copyWith(color: AppColors.black),
       decoration: decoration,
     );

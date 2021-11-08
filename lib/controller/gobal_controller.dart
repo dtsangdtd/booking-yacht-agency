@@ -12,6 +12,18 @@ class GlobalController extends GetxController {
     ticketTypesMap.clear();
   }
 
+  double total() {
+    List<TicketType> ticketTypes = selectedBusinessTour.value.ticketTypes;
+    double result = 0;
+
+    for (int i = 0; i < ticketTypes.length; i++) {
+      String id = ticketTypes[i].id;
+      List<Customer> list = ticketTypesMap[id] ?? [];
+      result = result + (list.length * ticketTypes[i].price);
+    }
+    return result;
+  }
+
   int countCustomer(String id) {
     List<Customer> customers = ticketTypesMap[id] ?? [];
     return customers.length;
@@ -34,6 +46,22 @@ class GlobalController extends GetxController {
   List<Customer> getCustomers(String id) {
     List<Customer> customers = ticketTypesMap[id] ?? [];
     return customers;
+  }
+
+  updateCustomer(
+    String id,
+    int index, {
+    String? name,
+    String? phone,
+  }) {
+    List<Customer> customers = ticketTypesMap[id] ?? [];
+    if (name != null) {
+      customers[index].name = name;
+    }
+    if (phone != null) {
+      customers[index].phone = phone;
+    }
+    ticketTypesMap[id] = customers;
   }
 
   setBusinessTour(BusinessTour value) {
