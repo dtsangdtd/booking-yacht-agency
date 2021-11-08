@@ -1,12 +1,19 @@
 import 'package:booking_yatch_agency/services/http_service.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HttpServiceImpl implements HttpService {
   late Dio _dio;
 
   HttpServiceImpl() {
     init();
+  }
+
+  loadToken() async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('jwtToken');
+    _dio.options.headers["Authorization"] = "Bearer $token";
   }
 
   @override
@@ -41,9 +48,15 @@ class HttpServiceImpl implements HttpService {
               '${options.method} | ${options.baseUrl}${options.path} \n ${options.data}');
           return handler.next(options); //continue
         },
-        onResponse: (response, handler) {
+        onResponse: (response, handler) async {
           debugPrint(
               "${response.statusCode} | ${response.statusMessage} | ${response.data}");
+
+          if (response.statusCode == 401) {
+            SharedPreferences prefs = await SharedPreferences.getInstance();
+            await prefs.remove('jwtToken');
+          }
+
           return handler.next(response); // continue
         },
         onError: (DioError e, handler) {
@@ -55,11 +68,10 @@ class HttpServiceImpl implements HttpService {
   }
 
   @override
-  void init() {
+  void init() async {
     _dio = Dio(
       BaseOptions(
         baseUrl: 'https://booking-yacht.azurewebsites.net/api/v1.0/agency/',
-        headers: {'Authorization': 'Bearer KEY'},
       ),
     );
     initializeInterceptor();

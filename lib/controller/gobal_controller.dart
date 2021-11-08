@@ -1,10 +1,27 @@
 import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
 import 'package:booking_yatch_agency/core/models/customer_model.dart';
+import 'package:booking_yatch_agency/core/models/order_request_model.dart';
 import 'package:get/get.dart';
 
 class GlobalController extends GetxController {
+// #region BusinessTour
   Rx<BusinessTour> selectedBusinessTour = BusinessTour().obs;
+
+  setBusinessTour(BusinessTour value) {
+    selectedBusinessTour.value = value;
+  }
+// #endregion
+
+// #region SelectedTrip
   Rx<Trip> selectedTrip = Trip().obs;
+
+  setTrip(Trip value) {
+    selectedTrip.value = value;
+  }
+// #endregion
+
+// #region TicketType
+
   RxMap<String, List<Customer>> ticketTypesMap =
       RxMap<String, List<Customer>>();
 
@@ -12,7 +29,7 @@ class GlobalController extends GetxController {
     ticketTypesMap.clear();
   }
 
-  double total() {
+  double getTotalPrice() {
     List<TicketType> ticketTypes = selectedBusinessTour.value.ticketTypes;
     double result = 0;
 
@@ -20,6 +37,18 @@ class GlobalController extends GetxController {
       String id = ticketTypes[i].id;
       List<Customer> list = ticketTypesMap[id] ?? [];
       result = result + (list.length * ticketTypes[i].price);
+    }
+    return result;
+  }
+
+  int getQuantity() {
+    List<TicketType> ticketTypes = selectedBusinessTour.value.ticketTypes;
+    int result = 0;
+
+    for (int i = 0; i < ticketTypes.length; i++) {
+      String id = ticketTypes[i].id;
+      List<Customer> list = ticketTypesMap[id] ?? [];
+      result += list.length;
     }
     return result;
   }
@@ -63,12 +92,13 @@ class GlobalController extends GetxController {
     }
     ticketTypesMap[id] = customers;
   }
+// #endregion
 
-  setBusinessTour(BusinessTour value) {
-    selectedBusinessTour.value = value;
+// #region Order
+
+  createOrder() {
+    OrderRequest model = OrderRequest();
   }
 
-  setTrip(Trip value) {
-    selectedTrip.value = value;
-  }
+// #endregion
 }

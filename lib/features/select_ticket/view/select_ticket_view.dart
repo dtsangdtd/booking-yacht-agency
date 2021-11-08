@@ -75,7 +75,7 @@ class SelectTicket extends StatelessWidget {
   }
 
   Widget buildTotal() {
-    String total = AppFormats.vnd.format(globalController.total());
+    String total = AppFormats.vnd.format(globalController.getTotalPrice());
     return Text('Total: $total', style: AppFonts.h3b);
   }
 

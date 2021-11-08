@@ -11,6 +11,7 @@ import 'package:booking_yatch_agency/features/select_ticket/binding/select_ticke
 import 'package:booking_yatch_agency/features/select_ticket/view/select_ticket_view.dart';
 import 'package:booking_yatch_agency/features/select_time/binding/select_time_binding.dart';
 import 'package:booking_yatch_agency/features/select_time/view/select_time_view.dart';
+import 'package:booking_yatch_agency/services/http_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -29,6 +30,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(
         SystemUiOverlayStyle.dark.copyWith(statusBarColor: Colors.white));
+
+    final _httpService = Get.put(HttpServiceImpl());
+    _httpService.loadToken();
 
     initializeDateFormatting();
     Intl.defaultLocale = 'vi';
