@@ -1,4 +1,4 @@
-import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
+import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/features/authen/controller/authen_controller.dart';
 import 'package:booking_yatch_agency/features/home/controller/home_controller.dart';
 import 'package:booking_yatch_agency/features/home/view/widgets/tour_card.dart';
@@ -20,20 +20,32 @@ class Search extends StatelessWidget {
   Widget build(BuildContext context) {
     return RefreshIndicator(
       onRefresh: () async {
-        controller.loadBusinessTours('');
+        controller.loadBusinessTours();
       },
       child: Column(
         children: [
           Container(
             margin: EdgeInsets.fromLTRB(30.w, 0.h, 30.w, 0.h),
-            decoration: BoxDecoration(),
-            child: Column(
+            child: Stack(
               children: [
                 Input(
                   'Tìm kiếm tour',
                   onChanged: (value) {
-                    controller.loadBusinessTours(value);
+                    controller.setSearchQuery(value);
                   },
+                ),
+                Positioned(
+                  right: 0,
+                  child: TextButton(
+                    onPressed: () async {
+                      await controller.loadBusinessTours();
+                    },
+                    style: TextButton.styleFrom(
+                      primary: Colors.transparent,
+                      shape: const CircleBorder(),
+                    ),
+                    child: const Icon(Icons.search, color: AppColors.black),
+                  ),
                 ),
               ],
             ),

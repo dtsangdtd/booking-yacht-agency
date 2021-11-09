@@ -1,13 +1,7 @@
 import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
 import 'package:booking_yatch_agency/core/constants/app_constants.dart';
-import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
-import 'package:booking_yatch_agency/core/models/tours_response_model.dart';
-import 'package:booking_yatch_agency/widgets/primary_button.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
-import 'package:get/get.dart';
 import 'package:shimmer/shimmer.dart';
 
 class TourCardLoading extends StatelessWidget {

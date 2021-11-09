@@ -13,7 +13,7 @@ class HttpServiceImpl implements HttpService {
   loadToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? token = prefs.getString('jwtToken');
-    _dio.options.headers["Authorization"] = "Bearer $token";
+    if (token != null) _dio.options.headers["Authorization"] = "Bearer $token";
   }
 
   @override

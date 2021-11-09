@@ -40,7 +40,9 @@ class Confirm extends StatelessWidget {
               ),
             ];
           },
-          body: buildBody(),
+          body: SingleChildScrollView(
+            child: buildBody(),
+          ),
         ),
       ),
       bottomNavigationBar: buildBottomNavigationBar(),
@@ -145,6 +147,7 @@ class Confirm extends StatelessWidget {
                   },
                   suffix: const Icon(Icons.navigate_next),
                   isLoading: globalController.createOrderLoading.value,
+                  isActive: controller.selectedIndex.value == 0,
                 ),
               )),
         ],

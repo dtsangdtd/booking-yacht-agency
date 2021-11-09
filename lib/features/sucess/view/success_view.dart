@@ -3,7 +3,8 @@ import 'package:booking_yatch_agency/core/constants/app_box_shadow.dart';
 import 'package:booking_yatch_agency/core/constants/app_colors.dart';
 import 'package:booking_yatch_agency/core/constants/app_fonts.dart';
 import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
-import 'package:booking_yatch_agency/features/confirm/controller/confirm_controller.dart';
+import 'package:booking_yatch_agency/features/sucess/controller/success_controller.dart';
+import 'package:booking_yatch_agency/features/sucess/view/widgets/ticket_item.dart';
 import 'package:booking_yatch_agency/widgets/primary_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,12 +15,14 @@ class Success extends StatelessWidget {
   Success({Key? key}) : super(key: key);
 
   final globalController = Get.find<GlobalController>();
-  final controller = Get.find<ConfirmController>();
+  final controller = Get.find<SuccessController>();
   late BusinessTour businessTour;
+  late List<TicketType> ticketTypes;
 
   @override
   Widget build(BuildContext context) {
     businessTour = globalController.selectedBusinessTour.value;
+    ticketTypes = businessTour.ticketTypes;
 
     return Scaffold(
       body: SafeArea(
@@ -36,7 +39,9 @@ class Success extends StatelessWidget {
               ),
             ];
           },
-          body: buildBody(),
+          body: SingleChildScrollView(
+            child: buildBody(),
+          ),
         ),
       ),
       bottomNavigationBar: buildBottomNavigationBar(),
@@ -44,31 +49,34 @@ class Success extends StatelessWidget {
   }
 
   Widget buildBody() {
+    List<Widget> ticketTypeList = [];
+
+    if (ticketTypes.isNotEmpty) {
+      for (int i = 0; i < ticketTypes.length - 1; i++) {
+        Widget ticketTypeItem = TicketItem(ticketTypes[i]);
+        ticketTypeList.add(ticketTypeItem);
+        ticketTypeList.add(const Divider());
+      }
+
+      Widget ticketTypeItem = TicketItem(ticketTypes.last);
+      ticketTypeList.add(ticketTypeItem);
+    }
+
     return Container(
       margin: EdgeInsets.fromLTRB(30.w, 15.h, 30.w, 0.h),
-      child: Center(
-        child: Text('Thanh toán thành công!', style: AppFonts.h3b),
-      ),
-    );
-  }
-
-  Row buildItem(String left, String right) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          left,
-          style: AppFonts.h4,
-        ),
-        Expanded(
-          child: Text(
-            right,
-            style: AppFonts.h4b.copyWith(fontWeight: FontWeight.w500),
-            textAlign: TextAlign.right,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Chi tiết vé',
+              style: AppFonts.h2b.copyWith(fontWeight: FontWeight.w500)),
+          Container(
+            margin: EdgeInsets.only(left: 20.w),
+            child: Column(
+              children: ticketTypeList,
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

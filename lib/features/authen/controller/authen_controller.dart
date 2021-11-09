@@ -62,15 +62,10 @@ class AuthenController extends GetxController {
     } else {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('jwtToken', response.data);
-      Delay.range(() {
-        isLogged.value = true;
-        isSignInLoading.value = false;
-      });
+      isLogged.value = true;
     }
 
-    Delay.range(() {
-      isSignInLoading.value = false;
-    });
+    isSignInLoading.value = false;
   }
 
   openSignIn(context) async {
@@ -91,16 +86,12 @@ class AuthenController extends GetxController {
       } else {
         SharedPreferences prefs = await SharedPreferences.getInstance();
         await prefs.setString('jwtToken', response.data);
-        Delay.range(() {
-          isLogged.value = true;
-          isOpenSignInLoading.value = false;
-        });
+
+        isLogged.value = true;
       }
     }
 
-    Delay.range(() {
-      isOpenSignInLoading.value = false;
-    });
+    isOpenSignInLoading.value = false;
   }
 
   signUp(String name, String username, String password) async {
@@ -112,19 +103,14 @@ class AuthenController extends GetxController {
     if (response.error.isNotEmpty) {
       signUpError.value = response.error;
     } else {
-      Delay.range(() {
-        Get.offNamed('/login');
-        Get.snackbar(
-          'Thành công',
-          'Đăng kí thành công! Đăng nhập để tiếp tục.',
-        );
-        isSignUpLoading.value = false;
-      });
+      Get.offNamed('/login');
+      Get.snackbar(
+        'Thành công',
+        'Đăng kí thành công! Đăng nhập để tiếp tục.',
+      );
     }
 
-    Delay.range(() {
-      isSignUpLoading.value = false;
-    });
+    isSignUpLoading.value = false;
   }
 
   signOut() async {

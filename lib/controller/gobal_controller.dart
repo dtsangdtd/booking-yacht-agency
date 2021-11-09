@@ -112,7 +112,7 @@ class GlobalController extends GetxController {
   RxBool createOrderLoading = false.obs;
 
   setPaymentMethod(value) {
-    paymentMethod = value;
+    paymentMethod.value = value;
   }
 
   createOrder() async {

@@ -1,7 +1,6 @@
 import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
 import 'package:booking_yatch_agency/core/repositories/business_tour/business_tour_repo.dart';
 import 'package:booking_yatch_agency/core/repositories/business_tour/business_tour_repo_impl.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class HomeController extends GetxController {
@@ -9,23 +8,24 @@ class HomeController extends GetxController {
 
   HomeController() {
     _businessToursRepo = Get.find<BusinessTourRepoImpl>();
-    loadBusinessTours('');
+    loadBusinessTours();
   }
 
   RxInt index = 0.obs;
   RxBool isLoading = false.obs;
   RxList<BusinessTour> businessTours = RxList<BusinessTour>();
+  RxString searchQuery = ''.obs;
 
-  loadBusinessTours(String query) async {
+  setSearchQuery(value) {
+    searchQuery.value = value;
+  }
+
+  loadBusinessTours() async {
     isLoading.value = true;
-    final result = await _businessToursRepo.getBusinessTours(query);
+    final result = await _businessToursRepo.getBusinessTours(searchQuery.value);
     isLoading.value = false;
 
-    if (result.isNotEmpty) {
-      businessTours.value = result;
-    } else {
-      debugPrint('No data received');
-    }
+    businessTours.value = result;
   }
 
   setIndex(value) {

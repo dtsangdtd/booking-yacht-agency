@@ -27,10 +27,15 @@ class TourCard extends StatelessWidget {
         item.idBusinessNavigation ?? IdBusinessNavigation();
 
     String getMinPrice() {
-      double min = ticketTypes[0].price;
-      for (var item in ticketTypes) {
-        if (item.price < min) {
-          min = item.price;
+      double min;
+      if (ticketTypes.isEmpty) {
+        min = 0;
+      } else {
+        min = ticketTypes[0].price;
+        for (var item in ticketTypes) {
+          if (item.price < min) {
+            min = item.price;
+          }
         }
       }
       return AppFormats.vnd.format(min);

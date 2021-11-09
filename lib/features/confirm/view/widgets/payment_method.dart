@@ -46,7 +46,7 @@ class PaymentMethod extends StatelessWidget {
                       EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                   height: 60.h,
                   child: PaymentButton(
-                    'Thẻ tín dụng',
+                    'VN Pay',
                     () {
                       controller.setSelectedIndex(1);
                       globalController.setPaymentMethod(1);
@@ -59,6 +59,23 @@ class PaymentMethod extends StatelessWidget {
             ],
           ),
         ),
+        Obx(() => Container(
+              child: controller.selectedIndex.value == 1
+                  ? SizedBox(
+                      width: 1.sw,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          SizedBox(height: 20.h),
+                          const Icon(Icons.engineering, size: 50),
+                          Text('Tính năng này đang trong quá trình phát triển',
+                              style: AppFonts.h4),
+                        ],
+                      ),
+                    )
+                  : const SizedBox(),
+            )),
       ],
     );
   }

@@ -27,7 +27,7 @@ class PrimaryTab extends StatelessWidget with PreferredSizeWidget {
             selectedColor: AppColors.primaryColor,
           ),
           SalomonBottomBarItem(
-            icon: const Icon(Icons.pages_outlined),
+            icon: const Icon(Icons.shield_outlined),
             title: const Text("Chế độ an toàn"),
             selectedColor: AppColors.primaryColor,
           ),
@@ -37,7 +37,7 @@ class PrimaryTab extends StatelessWidget with PreferredSizeWidget {
             selectedColor: AppColors.primaryColor,
           ),
           SalomonBottomBarItem(
-            icon: const Icon(Icons.person_outline),
+            icon: const Icon(Icons.menu),
             title: const Text("Tài khoản"),
             selectedColor: AppColors.primaryColor,
           ),

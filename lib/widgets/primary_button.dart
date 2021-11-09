@@ -10,6 +10,7 @@ class PrimaryButton extends StatelessWidget {
     this.prefix = const SizedBox(),
     this.suffix = const SizedBox(),
     this.isLoading = false,
+    this.isActive = true,
     Key? key,
   }) : super(key: key);
 
@@ -18,11 +19,12 @@ class PrimaryButton extends StatelessWidget {
   final Widget prefix;
   final Widget suffix;
   final bool isLoading;
+  final bool isActive;
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: !isLoading ? onPressed : null,
+      onPressed: !isLoading && isActive ? onPressed : null,
       child: !isLoading
           ? Row(
               mainAxisAlignment: MainAxisAlignment.center,
