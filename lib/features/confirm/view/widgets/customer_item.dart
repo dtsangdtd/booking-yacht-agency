@@ -7,8 +7,6 @@ import 'package:booking_yatch_agency/core/models/business_tours_response.dart';
 import 'package:booking_yatch_agency/core/models/customer_model.dart';
 import 'package:booking_yatch_agency/features/select_ticket/controller/select_ticket_controller.dart';
 import 'package:booking_yatch_agency/utils/format.dart';
-import 'package:booking_yatch_agency/widgets/circle_button.dart';
-import 'package:booking_yatch_agency/widgets/primary_input_form.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';

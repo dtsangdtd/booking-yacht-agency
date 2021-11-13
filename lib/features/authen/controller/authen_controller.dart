@@ -2,7 +2,6 @@ import 'package:booking_yatch_agency/core/models/authen_response_model.dart';
 import 'package:booking_yatch_agency/core/repositories/authen/authen_repo.dart';
 import 'package:booking_yatch_agency/core/repositories/authen/authen_repo_impl.dart';
 import 'package:booking_yatch_agency/utils/authentication.dart';
-import 'package:booking_yatch_agency/utils/delay.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:jwt_decoder/jwt_decoder.dart';

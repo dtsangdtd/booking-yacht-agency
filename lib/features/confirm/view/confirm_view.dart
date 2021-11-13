@@ -136,21 +136,46 @@ class Confirm extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Obx(() => SizedBox(
-                height: 40.h,
-                width: 140.h,
-                child: PrimaryButton(
-                  'Đặt ngay',
-                  () async {
-                    await globalController.createOrder();
-                    Get.offAllNamed('/success');
-                  },
-                  suffix: const Icon(Icons.navigate_next),
-                  isLoading: globalController.createOrderLoading.value,
-                  isActive: controller.selectedIndex.value == 0,
-                ),
-              )),
+          Obx(() {
+            if (controller.selectedIndex.value == 0) {
+              return buildCashPaymentButton();
+            } else {
+              return buildVnPayButton();
+            }
+          }),
         ],
+      ),
+    );
+  }
+
+  Widget buildCashPaymentButton() {
+    return SizedBox(
+      height: 40.h,
+      width: 140.h,
+      child: PrimaryButton(
+        'Thanh toán',
+        () async {
+          await globalController.createOrder();
+          Get.offAllNamed('/success');
+        },
+        suffix: const Icon(Icons.navigate_next),
+        isLoading: globalController.createOrderLoading.value,
+      ),
+    );
+  }
+
+  Widget buildVnPayButton() {
+    return SizedBox(
+      height: 40.h,
+      width: 140.h,
+      child: PrimaryButton(
+        'Thanh toán',
+        () async {
+          await globalController.createOrder();
+          Get.toNamed('/payment');
+        },
+        suffix: const Icon(Icons.navigate_next),
+        isLoading: globalController.createOrderLoading.value,
       ),
     );
   }

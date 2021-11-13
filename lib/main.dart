@@ -13,13 +13,14 @@ import 'package:booking_yatch_agency/features/detail/binding/detail_binding.dart
 import 'package:booking_yatch_agency/features/detail/view/detail_view.dart';
 import 'package:booking_yatch_agency/features/home/binding/home_binding.dart';
 import 'package:booking_yatch_agency/features/home/view/home_view.dart';
+import 'package:booking_yatch_agency/features/payment/binding/payment_binding.dart';
+import 'package:booking_yatch_agency/features/payment/view/payment_view.dart';
 import 'package:booking_yatch_agency/features/select_ticket/binding/select_ticket_binding.dart';
 import 'package:booking_yatch_agency/features/select_ticket/view/select_ticket_view.dart';
 import 'package:booking_yatch_agency/features/select_time/binding/select_time_binding.dart';
 import 'package:booking_yatch_agency/features/select_time/view/select_time_view.dart';
 import 'package:booking_yatch_agency/features/sucess/binding/success_binding.dart';
 import 'package:booking_yatch_agency/features/sucess/view/success_view.dart';
-import 'package:booking_yatch_agency/services/http_service_impl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -114,6 +115,12 @@ class MyApp extends StatelessWidget {
               name: '/success',
               page: () => Success(),
               binding: SuccessBinding(),
+              transition: Transition.noTransition,
+            ),
+            GetPage(
+              name: '/payment',
+              page: () => Payment(),
+              binding: PaymentBinding(),
               transition: Transition.noTransition,
             ),
           ],
